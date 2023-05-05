@@ -4,10 +4,7 @@ import com.example.onetomany.model.Author;
 import com.example.onetomany.repository.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/authors")
@@ -20,5 +17,11 @@ public class AuthorController {
     public ResponseEntity<Author> getAuthor(@PathVariable Long id) {
         Author author = authorRepository.findByIdWithBooks(id);
         return ResponseEntity.ok(author);
+    }
+
+    @PostMapping()
+    public ResponseEntity<String> saveAuthor(@RequestBody Author author){
+        authorRepository.save(author);
+        return ResponseEntity.ok("Author saved successfully");
     }
 }
